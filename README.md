@@ -1,6 +1,6 @@
-# MyApp
+# Nimble Angular Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+This is sample project is generated to demonstrate the deployment of angular static website through CI/CD pipeline.
 
 ## Development server
 
@@ -17,6 +17,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running Linit
+
+Run `ng lint` to execute the lint operation via [Angular Lint](https://angular.io/cli/lint).
 
 ## Running end-to-end tests
 
