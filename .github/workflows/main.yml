@@ -45,7 +45,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test
-        run: npm run -- --configuration=production
+        run: npm run test-headless
       - name: E2E
         run: npm run e2e -- --configuration=production
       - name: Deploy
