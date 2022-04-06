@@ -40,8 +40,6 @@ jobs:
       - name: Install dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: npm install
-      - name: npm fund
-        run: npm fund
       - name: Lint
         run: npm run lint
       - name: Build
