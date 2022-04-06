@@ -10,10 +10,10 @@ on:
       - main
 
 jobs:
-  buidl_test_deploy_job:
+  build_test_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build Teest & Deploy Job
+    name: Build Test & Deploy Job
     strategy:
       matrix:
         node-version: [16.x]
@@ -46,8 +46,6 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run test-headless
-      - name: E2E
-        run: npm run e2e -- --configuration=production
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -62,6 +60,18 @@ jobs:
           output_location: "dist/angular-web" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
+  cypress-run:
+        timeout-minutes: 10
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+          - name: Setup npm package
+            run: npm install
+          - name: Run E2E test
+            uses: cypress-io/github-action@v1
+            with:
+              config: baseUrl=https://lively-flower-09722a103.1.azurestaticapps.net
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
