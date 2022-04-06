@@ -46,11 +46,11 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Build
-        run: npm run build -- --prod
+        run: npm run build -configuration production
       - name: Test
-        run: npm test -- --prod
+        run: npm test -configuration production
       - name: E2E
-        run: npm run e2e -- --prod
+        run: npm run e2e -configuration production
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
