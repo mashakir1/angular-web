@@ -1,4 +1,4 @@
-name: Azure Static Web Apps CI/CD
+name: CI
 
 on:
   push:
@@ -43,9 +43,9 @@ jobs:
     - name: Build
       run: npm run build -- --prod
     - name: Test
-      run: npm test -- --configuration=build_and_test_job
+      run: npm test -- --configuration=ci
     - name: E2E
-      run: npm run e2e -- --configuration=build_and_test_job
+      run: npm run e2e -- --configuration=ci
   deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
