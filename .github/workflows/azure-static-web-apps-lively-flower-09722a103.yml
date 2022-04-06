@@ -22,14 +22,15 @@ jobs:
         node-version: 16.14.2
     - name: Install dependencies
       run: npm install
+      run: npm fund
     - name: Lint
       run: npm run lint
     - name: Build
-      run: npm run build -- --prod
+      run: npm run build --prod
     - name: Test
-      run: npm test -- --configuration=ci
+      run: npm test
     - name: E2E
-      run: npm run e2e -- --configuration=ci
+      run: npm run e2e
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
