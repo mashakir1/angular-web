@@ -10,50 +10,44 @@ on:
       - main
 
 jobs:
-  build_and_test_job:
+  buidl_test_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Test Job
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js v16.14.2
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.14.2
-    - name: Cache node modules
-      id: cache-nodemodules
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
-      with:
-        # caching node_modules
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-    - name: Install dependencies
-      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-      run: npm install
-    - name: npm fund
-      run: npm fund
-    - name: Lint
-      run: npm run lint
-    - name: Build
-      run: npm run build -- --prod
-    - name: Test
-      run: npm test -- --prod
-    - name: E2E
-      run: npm run e2e -- --prod
-  deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: ubuntu-latest
-    name: Deploy Job
+    name: Build Teest & Deploy Job
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
+      - name: Use Node.js v16.14.2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.14.2
+      - name: Cache node modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm install
+      - name: npm fund
+        run: npm fund
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build -- --prod
+      - name: Test
+        run: npm test -- --prod
+      - name: E2E
+        run: npm run e2e -- --prod
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
