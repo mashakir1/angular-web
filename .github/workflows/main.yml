@@ -59,20 +59,10 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist/angular-web" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-
-  cypress-run:
-        timeout-minutes: 10
-        needs: build_test_deploy_job
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v1
-          - name: Setup npm package
-            run: npm install
-          - name: Run E2E test
-            uses: cypress-io/github-action@v1
-            with:
-              config: baseUrl=https://lively-flower-09722a103.1.azurestaticapps.net
+      - name: Run E2E test
+        uses: cypress-io/github-action@v2
+        with:
+          config: baseUrl=https://lively-flower-09722a103.1.azurestaticapps.net
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
