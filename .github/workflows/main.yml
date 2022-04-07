@@ -60,23 +60,7 @@ jobs:
           output_location: "dist/angular-web" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
       - name: Run E2E test
-        uses: cypress-io/github-action@v3
-        with:
-          start: npm start
-          wait-on: http://localhost:4200
-          browser: chrome
-          headless: true
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
+        run: npm run e2e
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
