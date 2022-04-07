@@ -62,7 +62,7 @@ jobs:
       - name: Run E2E test
         uses: cypress-io/github-action@v2
         with:
-          config: baseUrl=https://lively-flower-09722a103.1.azurestaticapps.net
+          config: baseUrl=http://localhost:4200
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
