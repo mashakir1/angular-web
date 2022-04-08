@@ -46,6 +46,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run test-headless
+      - name: Test
+        run: npm run e2e -watch=false --no-progress --browsers=ChromeHeadless
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
