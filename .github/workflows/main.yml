@@ -46,8 +46,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run test-headless
-      - name: E2E
-        run: npm run e2e -- --configuration=production
+      #- name: E2E
+        #run: npm run e2e -- --configuration=production
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
